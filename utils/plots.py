@@ -16,6 +16,8 @@ import pandas as pd
 import seaborn as sn
 import torch
 from PIL import Image, ImageDraw, ImageFont
+# 모자이크 처리
+from lib.tools import mosaic_area
 
 from utils.general import user_config_dir, is_ascii, is_chinese, xywh2xyxy, xyxy2xywh
 from utils.metrics import fitness
@@ -78,7 +80,13 @@ class Annotator:
             self.im = im
         self.lw = line_width or max(round(sum(im.shape) / 2 * 0.003), 2)  # line width
 
-    def box_label(self, box, label='', color=(128, 128, 128), txt_color=(255, 255, 255)):
+    def box_label(self, box, label='', color=(128, 128, 128), txt_color=(255, 255, 255), is_mosaic=False, is_box=False, class_=''):
+        # 모자이크 처리
+        if is_mosaic:
+            if not class_ == 'car':
+                xyxy_ = [int(i.tolist()) for i in box]
+                self.im = mosaic_area(self.im,*xyxy_,ratio=0.1)
+
         # Add one xyxy box to image with label
         if self.pil or not is_ascii(label):
             self.draw.rectangle(box, width=self.lw, outline=color)  # box
