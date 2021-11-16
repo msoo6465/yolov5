@@ -13,7 +13,7 @@ from pathlib import Path
 
 import cv2
 import torch
-from lib.settings import logger
+from libs.settings import logger
 
 FILE = Path(__file__).resolve()
 ROOT = FILE.parents[0]  # YOLOv5 root directory

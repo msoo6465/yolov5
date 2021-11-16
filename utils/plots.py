@@ -17,7 +17,7 @@ import seaborn as sn
 import torch
 from PIL import Image, ImageDraw, ImageFont
 # 모자이크 처리
-from lib.tools import mosaic_area
+from libs.tools import mosaic_area
 
 from utils.general import user_config_dir, is_ascii, is_chinese, xywh2xyxy, xyxy2xywh
 from utils.metrics import fitness
